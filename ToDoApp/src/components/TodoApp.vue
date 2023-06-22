@@ -1,8 +1,7 @@
 <template>
     <div class="container">
-        <h2>this is test</h2>
         <TodoForm :todos="todos" />
-        <TodoList :todos="todos"/>
+        <TodoList :todos="todos" @complete-todo="completeTodo" @deleteHandler="deleteHandler" />
     </div>
 </template>
 
@@ -10,21 +9,34 @@
 import '../style.css'
 import TodoForm from './TodoForm.vue';
 import TodoList from './TodoList.vue';
-import { ref, provide } from 'vue';
+import { ref, provide, reactive } from 'vue';
 
 const todos = ref([]);
 function addTodoItem(todo) {
-  todos.value.push({
-    id: generateUniqueId(),
-    text: todo,
-    isCompleted: false
-  });
+    todos.value.push({
+        id: generateUniqueId(),
+        text: todo,
+        isCompleted: false
+    });
 }
 
 function generateUniqueId() {
-  return Math.floor(Math.random() * 10000);
+    return Math.floor(Math.random() * 10000);
 }
-provide('addTodoItem',addTodoItem)
+
+
+const completeTodo = (id) => {
+    const index = todos.value.findIndex((todo) => todo.id === id);
+    const selectedTodo = { ...todos.value[index] };
+
+    selectedTodo.isCompleted = !selectedTodo.isCompleted;
+
+    const updatedTodos = [...todos.value];
+    updatedTodos[index] = selectedTodo;
+    todos.value = updatedTodos; 
+}
+
+provide('addTodoItem', addTodoItem)
 </script>
 
 <style scoped>
