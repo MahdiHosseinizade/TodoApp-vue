@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <TodoForm :todos="todos" />
-        <TodoList :todos="todos" @complete-todo="completeTodo" @deleteHandler="deleteHandler" />
+        <TodoList :todos="todos" @edit-todo="" @remove-todo="removeTodo" @complete-todo="completeTodo" @deleteHandler="deleteHandler" />
     </div>
 </template>
 
@@ -34,6 +34,11 @@ const completeTodo = (id) => {
     const updatedTodos = [...todos.value];
     updatedTodos[index] = selectedTodo;
     todos.value = updatedTodos; 
+}
+
+const removeTodo = (id) =>{
+    const filteredTodos = todos.value.filter((todo) => todo.id !== id)
+    todos.value = filteredTodos
 }
 
 provide('addTodoItem', addTodoItem)

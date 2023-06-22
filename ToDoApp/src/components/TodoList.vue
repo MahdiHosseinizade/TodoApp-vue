@@ -1,11 +1,11 @@
 <template>
-    <section>
-        <article class="todo" v-for="(todo, index) in props.todos" :key="index">
-            <h3>{{ todo.text }}</h3>
+    <section >
+        <article :class="todo.isCompleted ? 'completed todo' : 'todo'" v-for="(todo, index) in props.todos" :key="index">
+            <h3 @click="() => emit('complete-todo', todo.id)">{{ todo.text }}</h3>
             <article>
-                <button>Edit</button>
-                <button @click="() => emit('complete-todo', todo.id)">
-                    Complete
+                <button @click="() => emit('edit-todo',todo.id)">Edit</button>
+                <button @click="() => emit('remove-todo' ,todo.id)" >
+                    Delete
                 </button>
             </article>
         </article>
@@ -17,7 +17,7 @@ import { ref, defineProps,defineEmits } from 'vue';
 const props = defineProps({
     todos: Array
 })
-const emit = defineEmits(['complete-todo']);
+const emit = defineEmits(['complete-todo','remove-todo']);
 
 
 </script>
@@ -29,5 +29,12 @@ const emit = defineEmits(['complete-todo']);
     align-items: center;
     width: 20rem;
     margin: 10px 0;
+}
+.todo h3{
+    cursor: pointer;
+}
+.completed{
+    text-decoration: line-through;
+    color: #804040;
 }
 </style>
