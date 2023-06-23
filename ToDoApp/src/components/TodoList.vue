@@ -34,7 +34,7 @@ const emit = defineEmits(['complete-todo','remove-todo']);
 }
 .completed{
     text-decoration: line-through;
-    color: #804040;
+    color: #9BA4B5
 }
 .removeBtn{
     color: crimson;

@@ -1,6 +1,6 @@
 <template>
   <form class="formControl" @submit="submitHandler">
-    <input type="text" v-model="todo" />
+    <input placeholder="Add Todo..." type="text" v-model="todo" />
     <button class="addBtn" type="submit">Add</button>
   </form>
 </template>
@@ -57,16 +57,17 @@ input:focus{
 }
 
 .addBtn{
-  color: rgb(190, 141, 19);
+  color: #394867;
     background-color: #fff;
-    border: 1px solid rgb(190, 141, 19);
+    border: 1px solid #394867;
     border-radius: 5px;
     outline: none;
-    padding: 5px 10px;
+    padding: 5px 15px;
     cursor: pointer;
+    font-size: 15px;
 }
 .addBtn:hover{
-  background-color: rgb(190, 141, 19);
+  background-color: #394867;
   color: white;
 }
 </style>
