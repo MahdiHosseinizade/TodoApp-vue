@@ -14,11 +14,12 @@
 <script setup>
 import { ref, defineProps, defineEmits,onMounted } from 'vue';
 const props = defineProps({
-    todos: Array
-})
+  todos: Array
+});
+
 const emit = defineEmits(['complete-todo', 'remove-todo']);
 onMounted(() => {
-    const storedTodos = localStorage.getItem('todos');
+    const storedTodos = localStorage.getItem('todosItem');
     if (storedTodos) {
         todos.value = JSON.parse(storedTodos);
     }
