@@ -10,17 +10,16 @@
     Add some todo
   </h3>
 </template>
-  
+
 <script setup>
-import { ref, defineProps, inject,computed } from 'vue';
+import { ref, defineProps, inject, computed, onMounted } from 'vue';
 
 const todo = ref('');
 const props = defineProps({
   todos: Array,
   getCompletedTaskCount: Function
-})
+});
 const addTodoItem = inject('addTodoItem');
-
 
 function submitHandler(e) {
   e.preventDefault();
@@ -29,12 +28,20 @@ function submitHandler(e) {
     addTodoItem(trimmedTodo);
     todo.value = '';
   }
-
 }
 
+onMounted(() => {
+  const storedTodos = localStorage.getItem('todos');
+  if (storedTodos) {
+    const parsedTodos = JSON.parse(storedTodos);
+    props.todos.push(...parsedTodos);
+  }
+});
 
+const getCompletedTaskCount = computed(() => {
+  return props.todos.filter(todo => todo.isCompleted).length;
+});
 </script>
- 
 <style scoped>
 input{
     border: 1px solid #ccc;
