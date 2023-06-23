@@ -51,7 +51,6 @@ function addTodoItem(todo) {
   
   localStorage.setItem('todosItem', JSON.stringify(todos.value));
 
-  // localStorage.clear('todos')
 }
 
 function generateUniqueId() {
@@ -62,9 +61,7 @@ const getCompletedTaskCount = computed(() => {
   return todos.value.filter(todo => todo.isCompleted).length;
 });
 
-// const EditHandler = (todo) =>{
-//   console.log(todo);
-// }
+
 
 const completeTodo = (id) => {
   const index = todos.value.findIndex((todo) => todo.id === id);
