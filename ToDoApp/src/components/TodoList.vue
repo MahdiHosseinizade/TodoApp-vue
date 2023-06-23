@@ -2,12 +2,12 @@
     <section>
         <article :class="todo.isCompleted ? 'completed todo' : 'todo'" v-for="(todo, index) in props.todos" :key="index">
             <h3 @click="() => emit('complete-todo', todo.id)">{{ todo.text }}</h3>
-            <article>
+            <article class="btns">
+                <button class="editBtn" @click="() => emit('edit-todo', todo)">
+                    Edit
+                </button>
                 <button class="removeBtn" @click="() => emit('remove-todo', todo.id)">
                     Delete
-                </button>
-                <button class="removeBtn" @click="() => emit('edit-todo', todo)">
-                    Edit
                 </button>
             </article>
         </article>
@@ -65,4 +65,20 @@ onMounted(() => {
 .removeBtn:hover {
     color: white;
     background-color: crimson;
-}</style>
+}
+.editBtn{
+    margin-right: 10px;
+    color: #394867;
+    background-color: #fff;
+    border: 1px solid #394867;
+    border-radius: 5px;
+    outline: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+.editBtn:hover{
+    color: white;
+    background-color: #394867;
+    font-size: 14px;
+}
+</style>

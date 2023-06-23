@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <TodoForm :todos="todos" :get-completed-task-count="getCompletedTaskCount" />
+    <TodoForm v-if="!isEditingTodo" :todos="todos" :get-completed-task-count="getCompletedTaskCount" />
     <template v-if="!isEditingTodo">
       <TodoList :todos="todos" @edit-todo="EditHandler" @remove-todo="removeTodo" @complete-todo="completeTodo" @deleteHandler="deleteHandler" />
     </template>
