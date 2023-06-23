@@ -3,14 +3,21 @@
     <input placeholder="Add Todo..." type="text" v-model="todo" />
     <button class="addBtn" type="submit">Add</button>
   </form>
+  <h3 class="show-completed-task" v-if="todos.length > 0">
+    <span class="task-count">{{ getCompletedTaskCount }}</span> task completed
+  </h3>
+  <h3 class="show-completed-task" v-else>
+    Add some todo
+  </h3>
 </template>
   
 <script setup>
-import { ref, defineProps, inject } from 'vue';
+import { ref, defineProps, inject,computed } from 'vue';
 
 const todo = ref('');
 const props = defineProps({
-  todos: Array
+  todos: Array,
+  getCompletedTaskCount: Function
 })
 const addTodoItem = inject('addTodoItem');
 
@@ -69,5 +76,21 @@ input:focus{
 .addBtn:hover{
   background-color: #394867;
   color: white;
+}
+.task-count{
+  width: 20px;
+  height: 20px;
+  background-color: #394867;
+  border-radius: 50%;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 5px;
+}
+.show-completed-task{
+  display: flex;
+  flex-direction: row;
+
 }
 </style>

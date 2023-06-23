@@ -1,9 +1,9 @@
 <template>
-    <section >
+    <section>
         <article :class="todo.isCompleted ? 'completed todo' : 'todo'" v-for="(todo, index) in props.todos" :key="index">
             <h3 @click="() => emit('complete-todo', todo.id)">{{ todo.text }}</h3>
             <article>
-                <button class="removeBtn" @click="() => emit('remove-todo' ,todo.id)" >
+                <button class="removeBtn" @click="() => emit('remove-todo', todo.id)">
                     Delete
                 </button>
             </article>
@@ -12,11 +12,11 @@
 </template>
 
 <script setup>
-import { ref, defineProps,defineEmits } from 'vue';
+import { ref, defineProps, defineEmits } from 'vue';
 const props = defineProps({
     todos: Array
 })
-const emit = defineEmits(['complete-todo','remove-todo']);
+const emit = defineEmits(['complete-todo', 'remove-todo']);
 
 
 </script>
@@ -28,15 +28,23 @@ const emit = defineEmits(['complete-todo','remove-todo']);
     align-items: center;
     width: 20rem;
     margin: 10px 0;
+    border: 1px solid #9BA4B5;
+    border-radius: 5px;
+    width: 23rem;
+    height: 3rem;
+    padding: 1rem;
 }
-.todo h3{
+
+.todo h3 {
     cursor: pointer;
 }
-.completed{
+
+.completed {
     text-decoration: line-through;
-    color: #9BA4B5
+    color: #394867
 }
-.removeBtn{
+
+.removeBtn {
     color: crimson;
     background-color: #fff;
     border: 1px solid crimson;
@@ -45,8 +53,8 @@ const emit = defineEmits(['complete-todo','remove-todo']);
     padding: 5px 10px;
     cursor: pointer;
 }
-.removeBtn:hover{
+
+.removeBtn:hover {
     color: white;
     background-color: crimson;
-}
-</style>
+}</style>

@@ -1,7 +1,7 @@
 <template>
     <div class="container">
-        <TodoForm :todos="todos" />
-        <TodoList :todos="todos" @edit-todo="" @remove-todo="removeTodo" @complete-todo="completeTodo" @deleteHandler="deleteHandler" />
+        <TodoForm :todos="todos" :get-completed-task-count="getCompletedTaskCount"  />
+        <TodoList :todos="todos" @remove-todo="removeTodo" @complete-todo="completeTodo" @deleteHandler="deleteHandler" />
     </div>
 </template>
 
@@ -9,7 +9,7 @@
 import '../style.css'
 import TodoForm from './TodoForm.vue';
 import TodoList from './TodoList.vue';
-import { ref, provide, reactive } from 'vue';
+import { ref, provide, computed } from 'vue';
 
 const todos = ref([]);
 function addTodoItem(todo) {
@@ -23,6 +23,9 @@ function addTodoItem(todo) {
 function generateUniqueId() {
     return Math.floor(Math.random() * 10000);
 }
+const getCompletedTaskCount = computed(() => {
+  return todos.value.filter(todo => todo.isCompleted).length;
+});
 
 
 const completeTodo = (id) => {
@@ -50,7 +53,7 @@ provide('addTodoItem', addTodoItem)
     align-items: center;
     flex-direction: column;
     width: 40rem;
-    height: 40vh;
+    height:100%;
     background-color: #fff;
     border: 1px solid #ccc;
     border-radius: 5px;
