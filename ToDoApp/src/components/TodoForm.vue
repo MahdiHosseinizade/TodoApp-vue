@@ -4,7 +4,7 @@
     <button class="addBtn" type="submit">Add</button>
   </form>
   <h3 class="show-completed-task" v-if="todos.length > 0">
-    <span class="task-count">{{ getCompletedTaskCount }}</span> {{ getCompletedTaskCount === 1 ? 'task' : 'tasks' }} completed
+    <span class="task-count">{{ getCompletedTaskCount }}</span> {{ getCompletedTaskCount <= 1 ? 'task' : 'tasks' }} completed
   </h3>
   <h3 class="show-completed-task" v-else>
     Add some todo
@@ -24,7 +24,10 @@ const addTodoItem = inject('addTodoItem');
 function submitHandler(e) {
   e.preventDefault();
   const trimmedTodo = todo.value.trim();
-  if (trimmedTodo !== '') {
+  if (trimmedTodo === '') {
+    alert('Please enter a todo');
+  }
+  else if (trimmedTodo !== '') {
     addTodoItem(trimmedTodo);
     todo.value = '';
   }
