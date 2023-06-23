@@ -1,18 +1,40 @@
 <template>
   <div class="container">
     <TodoForm :todos="todos" :get-completed-task-count="getCompletedTaskCount" />
-    <TodoList :todos="todos" @remove-todo="removeTodo" @complete-todo="completeTodo" @deleteHandler="deleteHandler" />
+    <template v-if="!isEditingTodo">
+      <TodoList :todos="todos" @edit-todo="EditHandler" @remove-todo="removeTodo" @complete-todo="completeTodo" @deleteHandler="deleteHandler" />
+    </template>
+    <template v-else>
+      <EditTodo :todo="editingTodo" @update-todo="updateTodo" />
+    </template>
   </div>
 </template>
   
 <script setup>
 import '../style.css'
+import EditTodo from './EditTodo.vue';
 import TodoForm from './TodoForm.vue';
 import TodoList from './TodoList.vue';
 import { ref, provide, computed, onMounted } from 'vue';
 
 const todos = ref([]);
+const editingTodo = ref(null);
 
+function EditHandler(todo) {
+  editingTodo.value = todo;
+}
+const isEditingTodo = computed(() => {
+  return editingTodo.value !== null;
+})
+
+function updateTodo(newTodo, id) {
+  const index = todos.value.findIndex(todo => todo.id === id);
+  if (index !== -1) {
+    todos.value[index].text = newTodo;
+    localStorage.setItem('todosItem', JSON.stringify(todos.value));
+  }
+  editingTodo.value = null;
+}
 onMounted(() => {
   const storedTodos = localStorage.getItem('todosItem');
   if (storedTodos) {
@@ -39,6 +61,10 @@ function generateUniqueId() {
 const getCompletedTaskCount = computed(() => {
   return todos.value.filter(todo => todo.isCompleted).length;
 });
+
+// const EditHandler = (todo) =>{
+//   console.log(todo);
+// }
 
 const completeTodo = (id) => {
   const index = todos.value.findIndex((todo) => todo.id === id);

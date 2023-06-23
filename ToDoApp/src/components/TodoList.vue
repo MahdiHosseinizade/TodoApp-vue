@@ -6,6 +6,9 @@
                 <button class="removeBtn" @click="() => emit('remove-todo', todo.id)">
                     Delete
                 </button>
+                <button class="removeBtn" @click="() => emit('edit-todo', todo)">
+                    Edit
+                </button>
             </article>
         </article>
     </section>
@@ -17,7 +20,7 @@ const props = defineProps({
   todos: Array
 });
 
-const emit = defineEmits(['complete-todo', 'remove-todo']);
+const emit = defineEmits(['complete-todo', 'remove-todo', 'edit-todo']);
 onMounted(() => {
     const storedTodos = localStorage.getItem('todosItem');
     if (storedTodos) {
