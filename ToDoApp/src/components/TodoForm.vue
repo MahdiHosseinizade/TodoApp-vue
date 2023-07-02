@@ -12,14 +12,15 @@
 </template>
 
 <script setup>
-import { ref, defineProps, inject, computed, onMounted } from 'vue';
+import { ref, defineProps, computed, onMounted } from 'vue';
 
 const todo = ref('');
 const props = defineProps({
   todos: Array,
-  getCompletedTaskCount: Function
+  getCompletedTaskCount: Function,
+  addTodoItem:Function
 });
-const addTodoItem = inject('addTodoItem');
+
 
 function submitHandler(e) {
   e.preventDefault();
@@ -28,7 +29,7 @@ function submitHandler(e) {
     alert('Please enter a todo');
   }
   else if (trimmedTodo !== '') {
-    addTodoItem(trimmedTodo);
+    props.addTodoItem(trimmedTodo);
     todo.value = '';
   }
 }

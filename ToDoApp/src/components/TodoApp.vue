@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <TodoForm v-if="!isEditingTodo" :todos="todos" :get-completed-task-count="getCompletedTaskCount" />
+    <TodoForm v-if="!isEditingTodo" :todos="todos" :addTodoItem="addTodoItem" :get-completed-task-count="getCompletedTaskCount" />
     <template v-if="!isEditingTodo">
       <TodoList :todos="todos" @edit-todo="EditHandler" @remove-todo="removeTodo" @complete-todo="completeTodo" @deleteHandler="deleteHandler" />
     </template>
@@ -15,7 +15,7 @@ import '../style.css'
 import EditTodo from './EditTodo.vue';
 import TodoForm from './TodoForm.vue';
 import TodoList from './TodoList.vue';
-import { ref, provide, computed, onMounted } from 'vue';
+import { ref,  computed, onMounted } from 'vue';
 
 const todos = ref([]);
 const editingTodo = ref(null);
@@ -79,7 +79,6 @@ const removeTodo = (id) => {
   localStorage.setItem('todos', JSON.stringify(todos.value));
 }
 
-provide('addTodoItem', addTodoItem);
 </script>
   
 <style scoped>
