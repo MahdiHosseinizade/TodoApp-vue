@@ -70,13 +70,13 @@ const completeTodo = (id) => {
   const updatedTodos = [...todos.value];
   updatedTodos[index] = selectedTodo;
   todos.value = updatedTodos;
-  localStorage.setItem('todos', JSON.stringify(todos.value));
+  localStorage.setItem('todosItem', JSON.stringify(todos.value));
 }
 
 const removeTodo = (id) => {
   const filteredTodos = todos.value.filter((todo) => todo.id !== id);
   todos.value = filteredTodos;
-  localStorage.setItem('todos', JSON.stringify(todos.value));
+  localStorage.setItem('todosItem', JSON.stringify(todos.value));
 }
 
 </script>

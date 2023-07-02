@@ -21,12 +21,7 @@ const props = defineProps({
 });
 
 const emit = defineEmits(['complete-todo', 'remove-todo', 'edit-todo']);
-onMounted(() => {
-    const storedTodos = localStorage.getItem('todosItem');
-    if (storedTodos) {
-        todos.value = JSON.parse(storedTodos);
-    }
-});
+
 </script>
 
 <style scoped>

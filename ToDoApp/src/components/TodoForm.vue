@@ -34,13 +34,6 @@ function submitHandler(e) {
   }
 }
 
-onMounted(() => {
-  const storedTodos = localStorage.getItem('todos');
-  if (storedTodos) {
-    const parsedTodos = JSON.parse(storedTodos);
-    props.todos.push(...parsedTodos);
-  }
-});
 
 const getCompletedTaskCount = computed(() => {
   return props.todos.filter(todo => todo.isCompleted).length;
